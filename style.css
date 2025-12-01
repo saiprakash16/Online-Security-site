@@ -276,61 +276,7 @@ main {
   font-size: 0.95rem;
 }
 
-/* ========= EVALUATION FORMS ========= */
 
-.evaluation-form {
-  margin-top: 1rem;
-  background: rgba(15, 23, 42, 0.96);
-  border: 1px solid rgba(148, 163, 184, 0.5);
-  border-radius: 16px;
-  padding: 1rem 1.2rem;
-  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.96);
-}
-
-.eval-item {
-  margin-bottom: 1rem;
-}
-
-.eval-item label {
-  display: block;
-  font-weight: 500;
-  margin-bottom: 0.35rem;
-}
-
-.scale label {
-  margin-right: 0.5rem;
-  font-size: 0.9rem;
-}
-
-textarea {
-  width: 100%;
-  padding: 0.55rem 0.7rem;
-  border-radius: 10px;
-  border: 1px solid rgba(148, 163, 184, 0.7);
-  background: rgba(15, 23, 42, 0.9);
-  color: #e5edff;
-  resize: vertical;
-  min-height: 70px;
-}
-
-textarea:focus {
-  outline: none;
-  border-color: #60a5fa;
-  box-shadow: 0 0 0 1px #60a5fa;
-}
-
-.note {
-  font-size: 0.8rem;
-  color: #cbd5f5;
-}
-
-/* ========= FOOTER ========= */
-footer {
-  text-align: center;
-  padding: 1rem;
-  font-size: 0.8rem;
-  color: #cbd5f5;
-}
 
 /* ========= BADGE OVERLAY (Candy Crush vibe) ========= */
 
