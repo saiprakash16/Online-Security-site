@@ -1,179 +1,421 @@
-/* Basic reset */
+/* ========= GLOBAL RESET & BASE ========= */
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #e5edff;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ========= ANIMATED BACKGROUND ("LIVE WALLPAPER") ========= */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -80px;
+  background: linear-gradient(
+    120deg,
+    #020617,
+    #1d4ed8,
+    #9333ea,
+    #0f172a,
+    #22c55e
+  );
+  background-size: 300% 300%;
+  animation: gradientMove 18s ease-in-out infinite;
+  z-index: -2;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 55%),
+              radial-gradient(circle at bottom, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98));
+  z-index: -1;
+}
+
+@keyframes gradientMove {
+  0% {
+    transform: translate3d(0, 0, 0);
+    background-position: 0% 50%;
   }
-  
-  body {
-    background-color: #f4f7fb;
-    color: #222;
+  50% {
+    transform: translate3d(0, 10px, 0);
+    background-position: 100% 50%;
   }
-  
+  100% {
+    transform: translate3d(0, 0, 0);
+    background-position: 0% 50%;
+  }
+}
+
+/* ========= LAYOUT ========= */
+
+header {
+  padding: 1.2rem 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* ========= NAV & BUTTONS ========= */
+
+nav button {
+  background: rgba(15, 23, 42, 0.8);
+  color: #e5edff;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.6);
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+nav button::before {
+  content: "●";
+  font-size: 0.55rem;
+  color: #22c55e;
+}
+
+nav button:hover {
+  background: rgba(30, 64, 175, 0.95);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.75);
+}
+
+/* MAIN CONTAINER CARD */
+main {
+  padding: 0.75rem 1.5rem 2.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.page-section {
+  display: none;
+  margin-top: 1.4rem;
+  padding: 1.5rem 1.6rem;
+  background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.16), transparent 55%),
+              radial-gradient(circle at bottom right, rgba(55, 65, 81, 0.4), rgba(15, 23, 42, 0.96));
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  backdrop-filter: blur(22px);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.95);
+}
+
+.page-section.active {
+  display: block;
+}
+
+/* HEADINGS / TEXT */
+.page-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+}
+
+.page-section p {
+  margin: 0.4rem 0 0.8rem;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: #e5edff;
+}
+
+/* HOME LESSON GRID */
+.lesson-grid {
+  margin-top: 1.1rem;
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
+
+.lesson-link {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  padding: 0.75rem 0.9rem;
+  border-radius: 14px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #e5edff;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.9);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.lesson-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 38px rgba(15, 23, 42, 0.98);
+  border-color: #60a5fa;
+}
+
+/* LESSON LIST PAGE */
+.lesson-list {
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.lesson-list a {
+  color: #93c5fd;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.lesson-list a:hover {
+  text-decoration: underline;
+}
+
+/* LESSON CONTENT */
+.lesson-section ul {
+  margin: 0.5rem 0 0.9rem 1.4rem;
+  font-size: 0.93rem;
+}
+
+.lesson-section li {
+  margin-bottom: 0.25rem;
+}
+
+/* ========= QUIZ CARD ========= */
+
+.quiz-container {
+  margin-top: 1.3rem;
+  padding: 1.1rem 1.1rem 1.3rem;
+  background: rgba(15, 23, 42, 0.96);
+  border-radius: 16px;
+  border: 1px solid rgba(96, 165, 250, 0.4);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
+}
+
+.quiz h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  color: #bfdbfe;
+}
+
+.quiz-question {
+  margin-bottom: 0.9rem;
+}
+
+.quiz-question h4 {
+  margin-bottom: 0.38rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.quiz-options label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.25rem 0.45rem;
+  border-radius: 8px;
+  transition: background 0.16s ease, transform 0.12s ease;
+}
+
+.quiz-options input {
+  margin-right: 0.35rem;
+}
+
+.quiz-options label:hover {
+  background: rgba(30, 64, 175, 0.6);
+  transform: translateY(-1px);
+}
+
+/* SUBMIT BUTTON */
+.quiz-submit {
+  margin-top: 0.7rem;
+  padding: 0.45rem 1.3rem;
+  background: linear-gradient(120deg, #22c55e, #16a34a);
+  color: #022c22;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 12px 25px rgba(22, 163, 74, 0.6);
+  transition: transform 0.15s ease, box-shadow 0.18s ease, filter 0.16s ease;
+}
+
+.quiz-submit:hover {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 16px 30px rgba(22, 163, 74, 0.8);
+  filter: brightness(1.05);
+}
+
+.quiz-result {
+  margin-top: 0.8rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* ========= EVALUATION FORMS ========= */
+
+.evaluation-form {
+  margin-top: 1rem;
+  background: rgba(15, 23, 42, 0.96);
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  border-radius: 16px;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.96);
+}
+
+.eval-item {
+  margin-bottom: 1rem;
+}
+
+.eval-item label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.35rem;
+}
+
+.scale label {
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+}
+
+textarea {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: rgba(15, 23, 42, 0.9);
+  color: #e5edff;
+  resize: vertical;
+  min-height: 70px;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 1px #60a5fa;
+}
+
+.note {
+  font-size: 0.8rem;
+  color: #cbd5f5;
+}
+
+/* ========= FOOTER ========= */
+footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: #cbd5f5;
+}
+
+/* ========= BADGE OVERLAY (Candy Crush vibe) ========= */
+
+.badge-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 100;
+}
+
+.badge-overlay.show {
+  opacity: 1;
+}
+
+.badge {
+  min-width: 220px;
+  padding: 0.8rem 1.8rem;
+  border-radius: 999px;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0f172a;
+  background: radial-gradient(circle at top, #facc15, #f97316);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+  transform: scale(0.4);
+  animation: badgePop 0.8s ease-out forwards;
+}
+
+/* Badge color variations via class on overlay */
+.badge-overlay.good .badge {
+  background: radial-gradient(circle at top, #22c55e, #16a34a);
+}
+
+.badge-overlay.great .badge {
+  background: radial-gradient(circle at top, #38bdf8, #0ea5e9);
+}
+
+.badge-overlay.perfect .badge {
+  background: radial-gradient(circle at top, #f97316, #ec4899);
+  color: #020617;
+}
+
+.badge-overlay.oops .badge {
+  background: radial-gradient(circle at top, #f97373, #ef4444);
+  color: #111827;
+}
+
+@keyframes badgePop {
+  0% {
+    opacity: 0;
+    transform: scale(0.2) translateY(40px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ========= RESPONSIVE ========= */
+
+@media (max-width: 768px) {
   header {
-    background-color: #1a73e8;
-    color: #fff;
-    padding: 1rem 2rem;
+    padding: 1rem 1.2rem;
   }
-  
-  header h1 {
-    margin-bottom: 0.5rem;
-  }
-  
-  nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  
-  nav button {
-    background-color: #fff;
-    color: #1a73e8;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 600;
-  }
-  
-  nav button:hover {
-    background-color: #e3edff;
-  }
-  
+
   main {
-    padding: 1.5rem 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
+    padding: 0.5rem 1rem 2rem;
   }
-  
+
   .page-section {
-    display: none;
-    margin-bottom: 2rem;
+    padding: 1.1rem 1rem 1.3rem;
   }
-  
-  .page-section.active {
-    display: block;
+
+  header h1 {
+    font-size: 1.4rem;
   }
-  
-  .lesson-grid {
-    margin-top: 1rem;
-    display: grid;
-    gap: 0.75rem;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-  
-  .lesson-link {
-    background-color: #fff;
-    border: 1px solid #d0d7e2;
-    padding: 0.75rem;
-    border-radius: 6px;
-    cursor: pointer;
-    text-align: left;
-  }
-  
-  .lesson-link:hover {
-    background-color: #e7f0ff;
-  }
-  
-  .lesson-section h2 {
-    margin-bottom: 0.5rem;
-  }
-  
-  .lesson-section p {
-    margin: 0.5rem 0;
-  }
-  
-  .lesson-section ul {
-    margin: 0.5rem 0 0.5rem 1.5rem;
-  }
-  
-  .lesson-section li {
-    margin-bottom: 0.25rem;
-  }
-  
-  /* Quiz styles */
-  .quiz-container {
-    margin-top: 1.5rem;
-    padding: 1rem;
-    background-color: #ffffff;
-    border-radius: 6px;
-    border: 1px solid #d0d7e2;
-  }
-  
-  .quiz-question {
-    margin-bottom: 1rem;
-  }
-  
-  .quiz-question h4 {
-    margin-bottom: 0.25rem;
-  }
-  
-  .quiz-options label {
-    display: block;
-    margin-bottom: 0.25rem;
-  }
-  
-  .quiz-submit {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: #1a73e8;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .quiz-submit:hover {
-    background-color: #155ab5;
-  }
-  
-  .quiz-result {
-    margin-top: 0.75rem;
-    font-weight: bold;
-  }
-  
-  /* Evaluation forms */
-  .evaluation-form {
-    margin-top: 1rem;
-    background-color: #fff;
-    border: 1px solid #d0d7e2;
-    border-radius: 6px;
-    padding: 1rem;
-  }
-  
-  .eval-item {
-    margin-bottom: 1rem;
-  }
-  
-  .eval-item label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-  }
-  
-  .scale label {
-    margin-right: 0.5rem;
-  }
-  
-  textarea {
-    width: 100%;
-    padding: 0.5rem;
-    border-radius: 4px;
-    border: 1px solid #d0d7e2;
-    resize: vertical;
-  }
-  
-  .note {
-    font-size: 0.85rem;
-    color: #555;
-  }
-  
-  footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #e5ecf6;
-    margin-top: 2rem;
-    font-size: 0.9rem;
-  }
-  
+}
